@@ -60,7 +60,10 @@ func (s *seqs) nthDefaultName(n int) string {
 func (s *seqs) Print() {
 	s.CommitLast()
 	fmt.Printf("sequential benchmark results:\n")
+	var ttl time.Duration
 	for _, v := range s.ks {
+		ttl+=v.d
 		fmt.Printf("  %s: took %s\n", v.name, v.d)
 	}
+	fmt.Printf("  => total took %s\n", ttl)
 }

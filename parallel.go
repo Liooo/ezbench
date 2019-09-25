@@ -60,10 +60,17 @@ func (p *pars) Print() {
 	})
 
 	fmt.Printf("parallel benchmark results:\n")
+	var (
+		ttlc int
+		ttld time.Duration
+	)
 	for _, k := range keys {
 		fmt.Printf("  %s: called %s, took %s\n", k, toCount(p.ks[k].count), p.ks[k].d)
+		ttlc += p.ks[k].count
+		ttld += p.ks[k].d
 		if p.ks[k].IsGoingOn() {
 			fmt.Printf("  !!! forgot to call ParEnd(%q)?\n", k)
 		}
 	}
+	fmt.Printf("  => total called %d, took %s\n", ttlc, ttld)
 }
